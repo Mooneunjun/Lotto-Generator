@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lotto Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      /* add some styling for the page */
+      body {
+        font-family: "Helvetica Neue", sans-serif;
+        text-align: center;
+        margin: 50px;
+        background-color: #ffffff;
+        color: rgb(29, 29, 29);
+        margin-top: 200px;
+      }
+      #content {
+        position: relative;
+        display: flex;
+        top: 100px;
+        flex-direction: column;
+        align-items: center;
+      }
+      h1 {
+        font-size: 2em;
+        margin-bottom: 50px;
+      }
+      #lotto-numbers {
+        padding: 20px;
+        font-size: 2em;
+        color: #353535;
+      }
+      #generate-button {
+        padding: 10px 20px;
+        font-size: 1.2em;
+        margin-top: 50px;
+        border-radius: 10px;
+        background-color: #595959;
+        color: white;
+        box-shadow: 0px 5px 4px 0px #4b4b4b96;
+        transition: all 0.2s ease-in-out;
+      }
+      #generate-button:hover {
+        background-color: #2b2b2b;
+        box-shadow: 0px 4px 8px #3d3d3dbe;
+        transform: translateY(-2px);
+      }
+      /* Add styles for dark mode */
+      body.dark-mode {
+        background-color: #353535;
+        color: #f2f2f2;
+      }
+      #lotto-numbers.dark-mode {
+        color: #f2f2f2;
+      }
+      #generate-button.dark-mode {
+        background-color: #f2f2f2;
+        color: #353535;
+        box-shadow: 0px 5px 4px 0px #4b4b4b96;
+      }
+      #generate-button.dark-mode:hover {
+        background-color: #595959;
+        box-shadow: 0px 4px 8px #3d3d3dbe;
+        transform: translateY(-2px);
+      }
+
+      #dark-mode-toggle.dark-mode {
+        color: white;
+      }
+      #dark-mode-toggle.dark-mode:hover {
+        color: #353535;
+      }
+      #dark-mode-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        padding: 10px;
+        background-color: transparent;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 1.4em;
+        color: #000000;
+        transition: all 0.2s ease-in-out;
+      }
+      #dark-mode-toggle:hover {
+        color: rgba(0, 0, 0, 0.02);
+      }
+
+      /* Add styles for smaller screens */
+      @media only screen and (max-width: 600px) {
+        body {
+          margin: 20px;
+        }
+        h1 {
+          font-size: 1.5em;
+        }
+        #lotto-numbers {
+          font-size: 1.5em;
+        }
+        #generate-button {
+          font-size: 1em;
+        }
+        #dark-mode-toggle {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- add a dark mode switch to the page -->
+    <div id="darkModeToggle">
+      <button id="dark-mode-toggle">DarkMode</button>
+    </div>
+    <div id="content">
+      <h1>Lotto Generator</h1>
+      <div id="lotto-numbers">0, 0, 0, 0, 0, 0</div>
+      <button id="generate-button">Generate Numbers</button>
+    </div>
+    <script>
+      // get references to the button and lotto numbers div
+      const generateButton = document.getElementById("generate-button");
+      const lottoNumbers = document.getElementById("lotto-numbers");
+
+      // function to generate lotto numbers
+      function generateLottoNumbers() {
+        // create an empty array to store the lotto numbers
+        const numbers = [];
+        // generate 6 unique random numbers between 1 and 49
+        while (numbers.length < 6) {
+          let randomNumber = Math.floor(Math.random() * 45) + 1;
+          if (!numbers.includes(randomNumber)) {
+            numbers.push(randomNumber);
+          }
+        }
+        // sort the numbers in ascending order
+        numbers.sort(function (a, b) {
+          return a - b;
+        });
+        // display the numbers on the page
+        lottoNumbers.innerHTML = numbers.join(", ");
+      }
+
+      // add an eventlistener to the generate button
+      generateButton.addEventListener("click", function () {
+        generateLottoNumbers();
+      });
+
+      // get references to the switch and body elements
+      const darkModeToggle = document.getElementById("dark-mode-toggle");
+      const body = document.querySelector("body");
+
+      // add an eventlistener to the switch
+      darkModeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+        lottoNumbers.classList.toggle("dark-mode");
+        generateButton.classList.toggle("dark-mode");
+        darkModeToggle.classList.toggle("dark-mode");
+      });
+
+      if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        document.body.classList.add("dark-mode");
+        lottoNumbers.classList.add("dark-mode");
+        generateButton.classList.add("dark-mode");
+        darkModeToggle.classList.add("dark-mode");
+        darkModeToggle.innerHTML = "LightMode";
+      }
+
+      darkModeToggle.addEventListener("click", function () {
+        if (darkModeToggle.innerHTML != "LightMode") {
+          darkModeToggle.innerHTML = "LightMode";
+        } else {
+          darkModeToggle.innerHTML = "DarkMode";
+        }
+      });
+    </script>
+  </body>
+</html>
