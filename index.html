@@ -2,8 +2,11 @@
 <html>
   <head>
     <title>Lotto Generator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta id="myMetaTag" name="theme-color" content="#ffffff" />
     <style>
       /* add some styling for the page */
       body {
@@ -14,6 +17,7 @@
         color: rgb(29, 29, 29);
         margin-top: 200px;
       }
+
       #content {
         position: relative;
         display: flex;
@@ -109,9 +113,11 @@
   </head>
   <body>
     <!-- add a dark mode switch to the page -->
+
     <div id="darkModeToggle">
       <a id="dark-mode-toggle">DarkMode</a>
     </div>
+
     <div id="content">
       <h1>Lotto Generator</h1>
       <div id="lotto-numbers">0, 0, 0, 0, 0, 0</div>
@@ -166,14 +172,23 @@
         lottoNumbers.classList.add("dark-mode");
         generateButton.classList.add("dark-mode");
         darkModeToggle.classList.add("dark-mode");
+        document.getElementById("myMetaTag").setAttribute("content", "#353535");
         darkModeToggle.innerHTML = "LightMode";
+      } else {
+        document.getElementById("myMetaTag").setAttribute("content", "#ffffff");
       }
 
       darkModeToggle.addEventListener("click", function () {
         if (darkModeToggle.innerHTML != "LightMode") {
           darkModeToggle.innerHTML = "LightMode";
+          document
+            .getElementById("myMetaTag")
+            .setAttribute("content", "#353535");
         } else {
           darkModeToggle.innerHTML = "DarkMode";
+          document
+            .getElementById("myMetaTag")
+            .setAttribute("content", "#ffffff");
         }
       });
     </script>
